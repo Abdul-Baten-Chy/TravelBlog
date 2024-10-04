@@ -1,4 +1,5 @@
 import Nav from "@/components/Nav";
+import GetUser from "@/components/utils/getUser";
 import AuthProvider from "@/provider/authProvide";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
+          <GetUser />
           <Nav></Nav>
           {children}
         </AuthProvider>

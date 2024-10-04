@@ -51,7 +51,6 @@ const Nav = () => {
           </button>
 
           <button className="flex-center !ml-8 gap-3">
-            <span className="text-lg font-medium lg:text-xl">TravelBlog</span>
             <Avater></Avater>
           </button>
         </div>

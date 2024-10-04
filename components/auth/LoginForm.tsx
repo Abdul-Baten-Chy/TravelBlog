@@ -30,6 +30,7 @@ const LoginForm = () => {
 
         if (token) {
           setAuth({ user, token });
+          localStorage.setItem("auth", JSON.stringify({ user, token }));
           router.push("/");
         }
       }

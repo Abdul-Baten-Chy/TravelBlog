@@ -2,16 +2,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import comment from "../public/icons/comment.svg";
-import like from "../public/icons/like.svg";
 import shareIcon from "../public/icons/share.svg";
 import varifyIcon from "../public/icons/varify.png";
-import { TPost } from "./posts/PostList";
+
+import { DownVotes } from "./DownVote";
+import { TPost } from "./Type";
+import { UpVotes } from "./UpVotes";
 
 const Post = ({ post }: { post: TPost }) => {
   return (
     <div className="post">
       <h2 className="font-inter text-2xl md:text-3xl lg:text-4xl ">
-        <Link href={`/posts/${post._id}`}>{post.title}</Link>
+        <Link href={`/${post._id}`}>{post.title}</Link>
       </h2>
       <div className="flex gap-4">
         <p>Author: {post.author.profile.name}</p>
@@ -25,7 +27,9 @@ const Post = ({ post }: { post: TPost }) => {
       </p>
       <p className="mb-8 mt-10">
         {post.content.substring(0, 400)}{" "}
-        <span className="text-blue-400">Read Full Blog</span>
+        <Link href={`/${post._id}`}>
+          <span className="text-blue-400">Read Full Blog</span>
+        </Link>
       </p>
       <div className="flex gap-4 ">
         {post.images.map((image, index) => (
@@ -41,24 +45,10 @@ const Post = ({ post }: { post: TPost }) => {
       </div>
       <div className="flex gap-4 items-center justify-between">
         <div className="flex gap-2  items-center my-4">
-          <Image
-            className="w-[30px]"
-            src={like}
-            width={100}
-            height={100}
-            alt="like icon"
-          />{" "}
-          <p>{post.upvotes} Upvotes</p>
+          <UpVotes post={post} />
         </div>
         <div className="flex gap-2  items-center my-4">
-          <Image
-            className="w-[30px] transform scale-x-[-1] scale-y-[-1]"
-            src={like}
-            width={100}
-            height={100}
-            alt="like icon"
-          />{" "}
-          <p>{post.downvotes} Down Votes</p>
+          <DownVotes post={post} />
         </div>
         <div className="flex gap-2  items-center my-4">
           <Image
