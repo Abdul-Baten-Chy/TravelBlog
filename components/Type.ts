@@ -1,40 +1,64 @@
-type AuthorProfile = {
+// Profile interface
+interface AuthorProfile {
   name: string;
-  bio: string;
+  bio?: string; // Optional, as it may not be present in every profile
   profilePicture: string;
-  followers: string[];
-  following: string[];
-};
+  followers?: string[]; // Array of user IDs
+  following?: string[]; // Array of user IDs
+}
 
-type Author = {
-  profile: AuthorProfile;
-  _id: string;
+// Author interface
+interface Author {
+  _id: string; // User ID
   email: string;
   role: string;
   verified: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
+  createdAt: Date;
+  updatedAt: Date;
+  profile: AuthorProfile; // Profile information
+}
 
-export type TPost = {
-  _id: string;
-  author: Author;
+interface CommentProfile {
+  name: string;
+  profilePicture: string;
+}
+
+// Author interface for the comment
+interface CommentAuthor {
+  _id: string; // User ID
+  profile: CommentProfile;
+}
+
+interface Comment {
+  _id: string; // Comment ID
+  post: string; // ID of the associated post
+  author: CommentAuthor; // Author details
+  content: string; // Content of the comment
+  createdAt: Date; // Creation timestamp
+  updatedAt: Date; // Last update timestamp
+}
+
+// Post interface
+export interface TPost {
+  _id: string; // Post ID
+  author: Author; // Author of the post
   title: string;
   content: string;
-  images: string[];
+  images: string[]; // Array of image URLs
   category: string;
   tags: string[];
   premium: boolean;
   upvotes: number;
   downvotes: number;
-  comments: string[];
-  createdAt: string;
-  updatedAt: string;
-};
+  comments: Comment[]; // Array of comments
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-export type ApiResponse = {
+// Response interface for the post retrieval
+export interface ApiResponse {
   success: boolean;
   statusCode: number;
   message: string;
   data: TPost[];
-};
+}

@@ -51,7 +51,7 @@ const Nav = () => {
           </button>
 
           <button className="flex-center !ml-8 gap-3">
-            <Avater></Avater>
+            <Avater isName={true}></Avater>
           </button>
         </div>
       </div>

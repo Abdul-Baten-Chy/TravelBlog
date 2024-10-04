@@ -34,7 +34,6 @@ const RegistrationForm = () => {
   } = useForm<Tuser>();
 
   const submitForm: SubmitHandler<FieldValues> = async (formData) => {
-    console.log(formData);
     const profilePictureFile = watch("profile.profilePicture")?.[0];
     let profilePictureUrl = "";
 
