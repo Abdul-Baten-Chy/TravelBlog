@@ -7,11 +7,12 @@ import { CommentInput } from "./forms/CommentInput";
 export default function Comments({ post }: { post: TPost }) {
   return (
     <>
+      (
       <div>
         <div className="flex-center mb-3 mt-14 gap-2 lg:gap-4">
           <Avater />
           <div className="flex-1">
-            <CommentInput postId={post._id} />
+            {post?._id && <CommentInput postId={post?._id} />}
           </div>
         </div>
 
@@ -42,6 +43,7 @@ export default function Comments({ post }: { post: TPost }) {
             ))}
         </div>
       </div>
+      )
     </>
   );
 }

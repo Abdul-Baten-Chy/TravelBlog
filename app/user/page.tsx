@@ -1,7 +1,7 @@
 import Feed from "@/components/Feed";
 import { PostBox } from "@/components/PostBox";
 
-export default async function Home() {
+export default async function userPage() {
   let posts;
 
   try {

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
+import { TcreatPost } from "@/components/Type";
 import axios from "axios";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -17,7 +18,7 @@ axiosInstance.interceptors.request.use(
     const accessToken = cookieStore.get("token")?.value;
 
     if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+      config.headers.Authorization = accessToken;
     }
     return config;
   },
@@ -34,7 +35,6 @@ export const loginUser = async (userData: FieldValues) => {
 
     if (data.success) {
       cookies().set("token", data?.data?.token);
-      console.log(data?.data?.token, data?.data?.user);
     }
 
     return data;
@@ -59,26 +59,16 @@ export const registerUser = async (userData: FieldValues) => {
   }
 };
 export const postComment = async (userData: FieldValues) => {
-  // try {
-  //   const { data } = await axiosInstance.post("api/comments", userData);
-  //   console.log(data, "data");
-
-  //   return data;
-  // } catch (error: any) {
-  //   console.log(error);
-  // }
-
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/comments`,
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // Set content type
-          // The 'Cookie' header will automatically include cookies in the request.
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData), // Send the content as JSON
-        credentials: "include", // Ensure cookies are sent with the request
+        body: JSON.stringify(userData),
+        credentials: "include",
       }
     );
 
@@ -93,4 +83,33 @@ export const postComment = async (userData: FieldValues) => {
   } catch (error) {
     console.error("Failed to fetch posts:", error);
   }
+};
+
+export const createPost = async (post: TcreatPost) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+      credentials: "include",
+    });
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await res.json();
+    if (data) {
+      revalidateTag("posts");
+      console.log(data);
+      return data;
+    }
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+  }
+};
+
+export const logout = () => {
+  cookies().delete("token");
 };

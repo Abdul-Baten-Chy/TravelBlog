@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import home from "../public/icons/home.svg";
-import logout from "../public/icons/logout.svg";
 import notification from "../public/icons/notification.svg";
 import logo from "../public/logo.jpg";
 import { Avater } from "./Image";
+import { Logout } from "./auth/Logout";
 
 const Nav = () => {
   return (
@@ -40,18 +40,10 @@ const Nav = () => {
               className="max-w-[30px]  lg:max-w-[50px]"
             />
           </button>
-          <button className="icon-btn">
-            <Image
-              width={100}
-              height={100}
-              src={logout}
-              className="max-w-[30px]  lg:max-w-[50px]"
-              alt="Logout"
-            />
-          </button>
+          <Logout />
 
           <button className="flex-center !ml-8 gap-3">
-            <Avater isName={true}></Avater>
+            <Avater isName={true} isLogin={true}></Avater>
           </button>
         </div>
       </div>

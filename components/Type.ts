@@ -40,8 +40,8 @@ interface Comment {
 
 // Post interface
 export interface TPost {
-  _id: string; // Post ID
-  author: Author; // Author of the post
+  _id?: string; // Post ID
+  author?: Author; // Author of the post
   title: string;
   content: string;
   images: string[]; // Array of image URLs
@@ -51,8 +51,24 @@ export interface TPost {
   upvotes: number;
   downvotes: number;
   comments: Comment[]; // Array of comments
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date | string;
+  updatedAt?: Date;
+}
+
+export interface TcreatPost {
+  _id?: string; // Post ID
+  author?: string; // Author of the post
+  title: string;
+  content: string;
+  images: string[]; // Array of image URLs
+  category: string;
+  tags: string[];
+  premium: boolean;
+  upvotes: number;
+  downvotes: number;
+  comments: Comment[]; // Array of comments
+  createdAt?: Date | string;
+  updatedAt?: Date;
 }
 
 // Response interface for the post retrieval

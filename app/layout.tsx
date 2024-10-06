@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
-import GetUser from "@/components/utils/getUser";
+
+import GetUser from "@/components/utils/GetUser";
 import AuthProvider from "@/provider/authProvide";
 import type { Metadata } from "next";
 import localFont from "next/font/local";

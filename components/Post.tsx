@@ -6,6 +6,7 @@ import shareIcon from "../public/icons/share.svg";
 import varifyIcon from "../public/icons/varify.png";
 
 import { DownVotes } from "./DownVote";
+import { PostBody } from "./PostBody";
 import { TPost } from "./Type";
 import { UpVotes } from "./UpVotes";
 
@@ -16,7 +17,7 @@ const Post = ({ post }: { post: TPost }) => {
         <Link href={`/${post._id}`}>{post.title}</Link>
       </h2>
       <div className="flex gap-4">
-        <p>Author: {post.author.profile.name}</p>
+        <p>Author: {post?.author?.profile?.name}</p>
         <Image src={varifyIcon} width={30} height={30} alt="varify icon" />
       </div>
       <p>
@@ -25,12 +26,7 @@ const Post = ({ post }: { post: TPost }) => {
       <p>
         <strong>Tags:</strong> {post.tags.join(", ")}
       </p>
-      <p className="mb-8 mt-10">
-        {post.content.substring(0, 400)}{" "}
-        <Link href={`/${post._id}`}>
-          <span className="text-blue-400">Read Full Blog</span>
-        </Link>
-      </p>
+      <PostBody post={post} />
       <div className="flex gap-4 ">
         {post.images.map((image, index) => (
           <Image
