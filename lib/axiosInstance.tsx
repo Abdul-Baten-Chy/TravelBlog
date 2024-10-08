@@ -109,6 +109,37 @@ export const createPost = async (post: TcreatPost) => {
     console.error("Failed to fetch posts:", error);
   }
 };
+export const updateImage = async (post: {
+  images?: string;
+  _id: string;
+  bio?: string;
+}) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/update`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+        credentials: "include",
+      }
+    );
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await res.json();
+    if (data) {
+      revalidateTag("user");
+      console.log(data);
+      return data;
+    }
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+  }
+};
 
 export const logout = () => {
   cookies().delete("token");

@@ -1,6 +1,3 @@
-import Feed from "@/components/Feed";
-import { PostBox } from "@/components/PostBox";
-
 export default async function userPage() {
   let posts;
 
@@ -20,9 +17,16 @@ export default async function userPage() {
   }
 
   return (
-    <div className="max-w-[1000px] mx-auto">
-      <PostBox></PostBox>
-      <Feed posts={posts}></Feed>
+    <div>
+      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content flex flex-col mt-8 md:mt-10 ml-6">
+        <label
+          htmlFor="my-drawer-2"
+          className="btn btn-primary drawer-button lg:hidden"
+        >
+          Click
+        </label>
+      </div>
     </div>
   );
 }

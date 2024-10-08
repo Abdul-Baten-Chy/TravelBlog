@@ -10,7 +10,7 @@ export default function Comments({ post }: { post: TPost }) {
       (
       <div>
         <div className="flex-center mb-3 mt-14 gap-2 lg:gap-4">
-          <Avater />
+          <Avater isLogin={false} isName={false} />
           <div className="flex-1">
             {post?._id && <CommentInput postId={post?._id} />}
           </div>

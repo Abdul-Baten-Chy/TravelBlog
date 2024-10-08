@@ -10,7 +10,7 @@ export function Avater({
   isLogin,
 }: {
   isName?: boolean;
-  isLogin: boolean;
+  isLogin?: boolean;
 }) {
   const { auth } = useAuth();
   const profilePicture = auth?.user?.profile?.profilePicture || avater;

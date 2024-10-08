@@ -1,3 +1,5 @@
+import { Tuser } from "./auth/Register";
+
 // Profile interface
 interface AuthorProfile {
   name: string;
@@ -77,4 +79,10 @@ export interface ApiResponse {
   statusCode: number;
   message: string;
   data: TPost[];
+}
+export interface ApiResponseUser {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: Tuser[];
 }
