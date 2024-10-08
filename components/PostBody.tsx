@@ -10,7 +10,7 @@ export function PostBody({ post }: { post: TPost }) {
     if (auth?.user?.verified) {
       route.push(`user/${post._id}`);
     } else {
-      route.push("/auth/signin");
+      route.push("/user/paysubscription");
     }
   };
   return (
