@@ -33,7 +33,7 @@ export const loginUser = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("api/auth/signin", userData);
 
-    if (data.success) {
+    if (data?.success) {
       cookies().set("token", data?.data?.token);
     }
 
@@ -49,7 +49,7 @@ export const registerUser = async (userData: FieldValues) => {
     const { data } = await axiosInstance.post("api/auth/signup", userData);
     console.log(data, "data");
 
-    if (data.success) {
+    if (data?.success) {
       cookies().set("token", data?.data?.token);
     }
 

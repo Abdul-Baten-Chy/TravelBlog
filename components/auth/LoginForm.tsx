@@ -40,7 +40,7 @@ const LoginForm = () => {
       if (axios.isAxiosError(error)) {
         setError("root.random", {
           type: "random",
-          message: error.response?.data?.message || "An error occurred",
+          message: error?.response?.data?.message || "An error occurred",
         });
       } else {
         setError("root.random", {

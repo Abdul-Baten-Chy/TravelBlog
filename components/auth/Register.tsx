@@ -72,7 +72,7 @@ const RegistrationForm = () => {
     };
     try {
       const response = await registerUser(completeFormData);
-      if (response.statusCode == 201) {
+      if (response?.statusCode == 201) {
         const { token, user } = response.data;
         console.log(token);
         if (token) {
@@ -94,7 +94,7 @@ const RegistrationForm = () => {
       className="border-b border-[#3F3F3F] pb-10 lg:pb-[30px]"
       onSubmit={handleSubmit(submitForm)}
     >
-      <Field label="Name" error={errors.profile?.name}>
+      <Field label="Name" error={errors?.profile?.name}>
         <input
           {...register("profile.name", {
             required: "Name is Required",
@@ -107,7 +107,7 @@ const RegistrationForm = () => {
           id="profile.name"
         />
       </Field>
-      <Field label="Bio" error={errors.profile?.bio}>
+      <Field label="Bio" error={errors?.profile?.bio}>
         <input
           {...register("profile.bio")}
           className={`auth-input ${
@@ -118,7 +118,7 @@ const RegistrationForm = () => {
           id="profile.bio"
         />
       </Field>
-      <Field label="Email" error={errors.email}>
+      <Field label="Email" error={errors?.email}>
         <input
           {...register("email", { required: "Email ID is Required" })}
           className={`auth-input ${
@@ -130,7 +130,7 @@ const RegistrationForm = () => {
         />
       </Field>
 
-      <Field label="Password" error={errors.password}>
+      <Field label="Password" error={errors?.password}>
         <input
           {...register("password", {
             required: "Password is required",
@@ -147,7 +147,7 @@ const RegistrationForm = () => {
           id="password"
         />
       </Field>
-      <Field label="Profile Picture" error={errors.profile?.profilePicture}>
+      <Field label="Profile Picture" error={errors?.profile?.profilePicture}>
         <input
           {...register("profile.profilePicture", {
             required: "Password is required",
