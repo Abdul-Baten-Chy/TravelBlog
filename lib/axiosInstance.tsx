@@ -8,7 +8,7 @@ import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 // Interceptor for attaching token
@@ -32,6 +32,7 @@ export default axiosInstance;
 export const loginUser = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("api/auth/signin", userData);
+    console.log(data);
 
     if (data?.success) {
       cookies().set("token", data?.data?.token);

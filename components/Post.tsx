@@ -5,12 +5,15 @@ import comment from "../public/icons/comment.svg";
 import shareIcon from "../public/icons/share.svg";
 import varifyIcon from "../public/icons/varify.png";
 
+import DleteButton from "@/app/user/mypost/_components/DleteButton";
 import { DownVotes } from "./DownVote";
 import { PostBody } from "./PostBody";
 import { TPost } from "./Type";
 import { UpVotes } from "./UpVotes";
+import { getCurrentUser } from "./utils/GetCurrentUser";
 
-const Post = ({ post }: { post: TPost }) => {
+const Post = async ({ post }: { post: TPost }) => {
+  const user = await getCurrentUser();
   return (
     <div className="post">
       <h2 className="font-inter text-2xl md:text-3xl lg:text-4xl ">
@@ -56,16 +59,20 @@ const Post = ({ post }: { post: TPost }) => {
           />{" "}
           <p>{post.comments.length} Comments</p>
         </div>
-        <div className="flex gap-2  items-center my-4">
-          <Image
-            className="w-[30px] transform scale-x-[-1] scale-y-[-1]"
-            src={shareIcon}
-            width={100}
-            height={100}
-            alt="like icon"
-          />{" "}
-          <p> Share</p>
-        </div>
+        {post?._id && user?.email == post?.author?.email ? (
+          <DleteButton id={post?._id} />
+        ) : (
+          <div className="flex gap-2  items-center my-4">
+            <Image
+              className="w-[30px] transform scale-x-[-1] scale-y-[-1]"
+              src={shareIcon}
+              width={100}
+              height={100}
+              alt="like icon"
+            />{" "}
+            <p> Share</p>
+          </div>
+        )}
       </div>
     </div>
   );

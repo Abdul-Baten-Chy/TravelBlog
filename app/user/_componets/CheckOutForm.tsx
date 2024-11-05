@@ -3,6 +3,7 @@
 import { useAuth } from "@/hook/useAuth";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -13,14 +14,23 @@ const CheckoutForm = () => {
   const [transactionId, setTransactionId] = useState("");
   const elements = useElements();
   const amount = 20;
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     if (amount) {
       axios
-        .post("/api/pay/create-payment-intent", { amount: amount })
+        .post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/pay/create-payment-intent`,
+          { amount: amount }
+        )
         .then((res) => {
-          setClientSecret(res.data.clientSecret);
+          console.log("Payment Intent Response:", res.data); // Log the response
+          if (res.data.clientSecret) {
+            setClientSecret(res.data.clientSecret);
+          } else {
+            console.error("Client secret not found");
+          }
         });
     }
   }, [amount]);
@@ -72,53 +82,68 @@ const CheckoutForm = () => {
           userId: auth?.user?._id,
         };
 
-        const res = await axios.post("/api/pay/subscription", payment);
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/pay/subscription`,
+          payment
+        );
         console.log("payment saved", res.data);
 
-        if (res.data?.paymentResult?.insertedId) {
+        if (res.data?.success) {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Thank you for the taka paisa",
+            title: "Thank you for subscribing",
             showConfirmButton: false,
             timer: 1500,
           });
-          // navigate("/dashboard/paymentHistory");
+          if (res?.data && auth) {
+            setAuth({ ...auth, user: res?.data?.data?.updatedUser });
+          }
+          router.push("/user/profile");
         }
       }
     }
   };
   return (
-    <div>
+    <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg">
+      <h2 className="text-xl font-bold text-center mb-4 text-black">
+        Checkout
+      </h2>
+      <h2 className="text-lg font-bold text-center mb-4 text-black">
+        20 USD monthly
+      </h2>
       <form onSubmit={handleSubmit}>
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
-                color: "#424770",
-                "::placeholder": {
-                  color: "#aab7c4",
+        <div className="mb-4 border border-gray-300 rounded-md p-2">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: "16px",
+                  color: "#424770",
+                  backgroundColor: "#f9fafb", // Light background color
+                  padding: "10px", // Padding around the element
+
+                  "::placeholder": {
+                    color: "#9ca3af", // Placeholder color
+                  },
+                },
+                invalid: {
+                  color: "#9e2146", // Error color
                 },
               },
-              invalid: {
-                color: "#9e2146",
-              },
-            },
-          }}
-        />
+            }}
+          />
+        </div>
         <button
-          className="btn btn-sm btn-primary my-4"
+          className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition my-4"
           type="submit"
-          // disabled={!stripe || !clientSecret}
         >
           Pay
         </button>
-        <p className="text-red-600">{error}</p>
+        {error && <p className="text-red-600 text-center mt-2">{error}</p>}
         {transactionId && (
-          <p className="text-green-600">
-            {" "}
-            Your transaction id: {transactionId}
+          <p className="text-green-600 text-center mt-2">
+            Your transaction ID: {transactionId}
           </p>
         )}
       </form>

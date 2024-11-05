@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/hook/useAuth";
 import Image from "next/image";
+
 import Link from "next/link";
 import avater from "../public/images/avatars/avatar_1.png";
 
@@ -19,7 +20,10 @@ export function Avater({
   return (
     <>
       {isName && auth && (
-        <span className="text-lg font-medium lg:text-xl">{name}</span>
+        <Link href={"/user/profile"}>
+          {" "}
+          <span className="text-lg font-medium lg:text-xl">{name}</span>
+        </Link>
       )}
       {isLogin && !auth?.user && <Link href={"/auth/signin"}>Login</Link>}
       {auth && (

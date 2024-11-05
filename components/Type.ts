@@ -75,9 +75,9 @@ export interface TcreatPost {
 
 // Response interface for the post retrieval
 export interface ApiResponse {
-  success: boolean;
-  statusCode: number;
-  message: string;
+  success?: boolean;
+  statusCode?: number;
+  message?: string;
   data: TPost[];
 }
 export interface ApiResponseUser {

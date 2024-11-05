@@ -5,6 +5,7 @@ import { updateImage } from "@/lib/axiosInstance";
 import Image from "next/image";
 import Link from "next/link";
 import editIcon from "../../../public/icons/edit.svg";
+import ticmark from "../../../public/icons/varify.png";
 import ProfileImage from "../_componets/ProfileImage";
 
 const image_hosting_key = process.env.NEXT_PUBLIC_API_KEY;
@@ -57,10 +58,15 @@ export default function Profile() {
       <div className="relative mb-8 max-h-[180px] max-w-[180px] rounded-full lg:mb-11 lg:max-h-[218px] lg:max-w-[218px]">
         <ProfileImage onImageUpload={handleImageUpload} />
       </div>
-      <div>
-        <h3 className="text-2xl font-semibold text-white lg:text-[28px]">
-          {auth?.user?.profile?.name}
-        </h3>
+      <div className="flex flex-col justify-center items-center gap-6">
+        <div className="flex gap-6">
+          <h3 className="text-2xl font-semibold text-white lg:text-[28px]">
+            {auth?.user?.profile?.name}
+          </h3>
+          {auth?.user?.verified && (
+            <Image src={ticmark} width={30} height={30} alt="check icon" />
+          )}
+        </div>
         <p className="leading-[231%] lg:text-lg">{auth?.user?.email}</p>
       </div>
 

@@ -19,7 +19,7 @@ export default function SideBar() {
         </Link>
       </li>
       <li>
-        <Link href={"/user/mypost"} className="mt-2 font-lato">
+        <Link href={"/user/paysubscription"} className="mt-2 font-lato">
           Pay Subscription
         </Link>
       </li>

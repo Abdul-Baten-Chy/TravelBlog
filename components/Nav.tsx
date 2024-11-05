@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import home from "../public/icons/home.svg";
 import notification from "../public/icons/notification.svg";
-import logo from "../public/logo.jpg";
+import logo from "../public/logo.png";
 import { Avater } from "./Image";
 import { Logout } from "./auth/Logout";
 
@@ -21,7 +21,7 @@ const Nav = () => {
         </Link>
 
         <div className="flex items-center space-x-4">
-          <Link href="./index.html" className="btn-primary">
+          <Link href="/" className="btn-primary">
             <Image
               width={100}
               height={100}
